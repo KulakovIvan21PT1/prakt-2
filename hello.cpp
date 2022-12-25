@@ -1,44 +1,36 @@
-#include <iostream>                                      
-#include <cmath>                                         // для функции cos sin
- 
-#define PI 3.14159265                                    // число ПИ
- using namespace std;
-int main()
-{
-
-string y;
-string x;
- int first ; // Числа, введенные с клавиатуры
-cout << "Введите cos или sin, знечение, ` если угол в градусах или . если в радианах""\n";
-cin>>x>>first>>y;
-if (y=="`") 
-{ 
+#include <iostream>
+#include <getopt.h>
+using namespace std;
+int main(int argc, char *argv[]) {
+        
+    int i, opt, result_umn = 1, result_del = 1, x, b=1, a;
     
-if (x=="cos")
-{
- cout << "cos "     << first
-            << " градусов = " << cos(first * PI / 180)   // вычисляем косинус угла, переведённого в радианы
-            << endl;
-} else
-    
-
-            cout << "sin "  << first
-            << " градусов = " << sin(first * PI / 180) // вычисляем синус угла, переведённого в радианы
-            << endl;
-} else
-    {
-
-    
-if (x=="cos")
-{
- cout << "cos "     << first
-            << " радиан = " << cos(first )   // вычисляем косинус угла, переведённого в радианы
-            << endl;
-} else
-    
-
-            cout << "sin "  << first
-            << " радиан = " << sin(first ) // вычисляем синус угла, переведённого в радианы
-    << endl;}
-    return 0;
+    while ((opt = getopt (argc, argv, "p:d:h")) != -1){
+        switch (opt) {
+            case 'h':
+                cout<<"КАЛЬКУЛЯТОР - "<< argv[0] << endl<< "Выберите действие:" << endl<< "-p — произведение всех введённых значений" << endl << "-d — частное первого значения на все последующие введённые значения"<< endl << "Для того, чтобы продолжить, запустите программу ещё раз с нужным параметром и введите значения через пробел"<< endl;
+            break;
+                
+                
+            case 'p':
+                for (i=2; i<argc; i++){
+                x = strtol(argv[i], NULL, 10);
+                result_umn=result_umn*x;
+                }
+                printf("Multiplication result_umn is %d\n", result_umn);
+                
+            break;
+                
+            case 'd':{
+                a= strtol(argv[2], NULL, 10);
+                for (i=2; i<argc; i++){
+                    x = strtol(argv[i], NULL, 10);
+                    b=b*x;
+                    result_del=a/(b/a);
+                }
+                printf("Multiplication result_del is %d\n", result_del);
+            break;
+            }
+        }
+    }
 }
